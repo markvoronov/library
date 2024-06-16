@@ -1,0 +1,13 @@
+env: "dev" # local, dev, prod
+http_server:
+  port: 8080
+
+db:
+  username: "postgres"
+  password: "qwerty"
+  host: "db_postgres"
+  port: "5432"
+#  host: "localhost"
+#  port: "5437"
+  dbname: "postgres"
+  sslmode: "disable"

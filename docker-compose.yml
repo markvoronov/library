@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db_postgres:
+    image: postgres:latest
+    container_name: db_postgres
+    environment:
+      - POSTGRES_PASSWORD=qwerty
+    ports:
+      - "5437:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    restart: always
+
+  library_app:
+    build: .
+    container_name: library_app
+    ports:
+      - "8087:8080"
+    depends_on:
+      - db_postgres
+    environment:
+      - DB_PASSWORD=qwerty
+    restart: always
+
