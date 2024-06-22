@@ -7,7 +7,5 @@ db:
   password: "qwerty"
   host: "db_postgres"
   port: "5432"
-#  host: "localhost"
-#  port: "5437"
   dbname: "postgres"
   sslmode: "disable"

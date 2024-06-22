@@ -14,17 +14,17 @@ type Author interface {
 }
 
 type Book interface {
-	Create(book library.Book) (int, error) // Возвращаем айди созданного автора
+	Create(book library.Book, srv_author Author) (int, error) // Возвращаем айди созданного автора
 	GetAll() ([]library.Book, error)
 	GetByID(bookId int) (library.Book, error)
 	Delete(bookId int) error
 	Update(bookId int, input library.UpdateBook) error
-	UpdateBookAndAuthor(bookId int, authorId int, input library.UpdateAuthorBook) error
+	UpdateBookAndAuthor(bookId int, authorId int, input library.UpdateAuthorBook, author Author) error
 }
 
 type Service struct {
-	Author
-	Book
+	Author Author
+	Book   Book
 }
 
 func NewService(repos *storage.Repository) *Service {

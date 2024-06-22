@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"library"
+	"library/cmd/common"
 	"library/internal/config"
 	handler "library/internal/http-server/handlers"
 	"library/internal/lib/logger/sl"
@@ -13,17 +14,11 @@ import (
 	"os"
 )
 
-const (
-	envLocal = "local"
-	envDev   = "dev"
-	envProd  = "prod"
-)
-
 func main() {
 
 	cfg := config.MustLoad()
 
-	log := setupLogger(cfg.Env)
+	log := common.SetupLogger(cfg.Env)
 	log.Info("Запуск приложения 'библиотека'", slog.String("env", cfg.Env))
 	log.Debug("Включены отладочные сообщения")
 
@@ -45,24 +40,4 @@ func main() {
 		log.Error("Ошибка при запуске http сервера %s", err.Error())
 	}
 
-}
-
-func setupLogger(env string) *slog.Logger {
-	var log *slog.Logger
-
-	switch env {
-	case envLocal:
-		log = slog.New(
-			slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
-		)
-	case envDev:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}),
-		)
-	case envProd:
-		log = slog.New(
-			slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}),
-		)
-	}
-	return log
 }

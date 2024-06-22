@@ -25,7 +25,7 @@ func (s *AuthorService) Create(Author library.Author) (int, error) {
 	// Сначала нужно проверить, нет ли уже такого автора. Идентифицировать будем по 3 полям: имя, фамилия, дата рождения
 	id, err := s.repo.Find(Author)
 	if err != nil {
-		err = fmt.Errorf("Не удалось проверить существование автора в базе", err)
+		err = fmt.Errorf("Не удалось проверить существование автора в базе: %w", err)
 		return -1, err
 	}
 	if id != nil {
@@ -46,7 +46,7 @@ func (s *AuthorService) GetByID(authorId int) (library.Author, error) {
 func (s *AuthorService) Delete(authorId int) error {
 	_, err := s.repo.GetById(authorId)
 	if err != nil {
-		err = fmt.Errorf("Нет возможности удалить данные о авторе ", err)
+		err = fmt.Errorf("Нет возможности удалить данные о авторе: %w", err)
 		return err
 	}
 	return s.repo.Delete(authorId)
@@ -55,7 +55,7 @@ func (s *AuthorService) Delete(authorId int) error {
 func (s *AuthorService) Update(authorId int, input library.UpdateAuthor) error {
 	_, err := s.repo.GetById(authorId)
 	if err != nil {
-		err = fmt.Errorf("Нет возможности обновить данные о авторе ", err)
+		err = fmt.Errorf("Нет возможности обновить данные о авторе: %w", err)
 		return err
 	}
 	return s.repo.Update(authorId, input)
@@ -66,7 +66,7 @@ func checkDateOfBirthday(checkedDate string) error {
 	dateOfBirth, err := time.Parse("2006-01-02", checkedDate)
 
 	if err != nil {
-		err = fmt.Errorf("Не удалось распарсить дату рождения из переданного JSON", err)
+		err = fmt.Errorf("Не удалось распарсить дату рождения из переданного JSON: %w", err)
 		return err
 	}
 

@@ -23,11 +23,12 @@ type Book interface {
 	Update(bookId int, input library.UpdateBook) error
 	UpdateBookAndAuthor(bookId int, authorId int, input library.UpdateAuthorBook) error
 	Find(book library.Book) (*int, error)
+	Db() *sql.DB
 }
 
 type Repository struct {
-	Author
-	Book
+	Author Author
+	Book   Book
 }
 
 func NewRepository(db *sql.DB) *Repository {

@@ -18,12 +18,12 @@ func NewPostgresDB(cfg *config.DbServer) (*sql.DB, error) {
 		cfg.Host, cfg.Port, cfg.Username, cfg.DBName, cfg.Password, cfg.SSLMode))
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open db: %w", err)
 	}
 
 	err = db.Ping()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to connect to db: %w", err)
 	}
 
 	return db, nil

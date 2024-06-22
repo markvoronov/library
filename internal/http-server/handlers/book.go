@@ -14,7 +14,7 @@ func (h *Handler) createBook(c *gin.Context) {
 		return
 	}
 
-	id, err := h.services.Book.Create(input)
+	id, err := h.services.Book.Create(input, h.services.Author)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
@@ -118,7 +118,7 @@ func (h *Handler) updateBookAndAuthor(c *gin.Context) {
 		return
 	}
 
-	err = h.services.Book.UpdateBookAndAuthor(bookId, authorId, input)
+	err = h.services.Book.UpdateBookAndAuthor(bookId, authorId, input, h.services.Author)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

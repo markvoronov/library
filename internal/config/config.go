@@ -48,6 +48,7 @@ func MustLoad() *Config {
 	// ее интерфейс на localhost, поэтому подменим путь
 	if cfg.Env == "local" {
 		cfg.DbServer.Host = "localhost"
+		cfg.DbServer.Port = "5437"
 	}
 
 	return &cfg
