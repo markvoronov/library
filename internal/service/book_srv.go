@@ -18,7 +18,7 @@ func (s *BookService) Create(book library.Book, srvAuthor Author) (int, error) {
 	// Сначала нужно проверить, нет ли уже такой книги. Идентифицировать будем по isbn
 	id, err := s.repo.Find(book)
 	if err != nil {
-		err = fmt.Errorf("Не удалось проверить существование книги в базе", err)
+		err = fmt.Errorf("Не удалось проверить существование книги в базе %w", err)
 		return -1, err
 	}
 	if id != nil {
